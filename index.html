@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Timetable Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+
+        <p class="eyebrow">PLAN SMARTER</p>
+
+        <h1>Smart Timetable Generator</h1>
+
+        <p class="subtitle">
+            Tell us what you need to do.
+            Let the scheduler organise your week.
+        </p>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+<form id="timetableForm">
+
+    <section class="panel">
+
+        <div class="section-heading">
+
+            <span class="step">01</span>
+
+            <div>
+                <h2>Your schedule</h2>
+                <p>Choose your timetable type and availability.</p>
+            </div>
+
+        </div>
+
+
+        <div class="field-grid">
+
+            <label class="field">
+                <span>Timetable type</span>
+
+                <select id="timetableType" required>
+                    <option value="Study">Study</option>
+                    <option value="Office">Office</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Custom">Custom</option>
+                </select>
+            </label>
+
+
+            <label class="field">
+                <span>Daily start time</span>
+
+                <input
+                    id="startTime"
+                    type="text"
+                    value="9:00 AM"
+                    placeholder="9:00 AM"
+                    required
+                >
+            </label>
+
+
+            <label class="field">
+                <span>Daily end time</span>
+
+                <input
+                    id="endTime"
+                    type="text"
+                    value="5:00 PM"
+                    placeholder="5:00 PM"
+                    required
+                >
+            </label>
+
+
+            <label class="field">
+                <span>Break between activities (minutes)</span>
+
+                <input
+                    id="breakMinutes"
+                    type="number"
+                    min="0"
+                    max="180"
+                    step="5"
+                    value="15"
+                    required
+                >
+            </label>
+
+        </div>
+
+
+        <p class="hint">
+            Enter times using AM/PM, for example 9:00 AM or 5:30 PM.
+            End time must be later than start time.
+        </p>
+
+
+        <div class="field days-field">
+
+            <span class="field-label">
+                Days you are available
+            </span>
+
+
+            <div class="day-options" id="dayOptions">
+
+                <label>
+                    <input type="checkbox" value="Monday" checked>
+                    Monday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Tuesday" checked>
+                    Tuesday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Wednesday" checked>
+                    Wednesday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Thursday" checked>
+                    Thursday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Friday" checked>
+                    Friday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Saturday">
+                    Saturday
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Sunday">
+                    Sunday
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="panel">
+
+        <div class="section-heading">
+
+            <span class="step">02</span>
+
+            <div>
+                <h2>Your activities</h2>
+
+                <p>
+                    Enter each activity and how much time it needs.
+                    Do not enter its day or time.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div id="activityList" class="activity-list"></div>
+
+
+        <div class="activity-actions">
+
+            <button
+                type="button"
+                class="button button-light"
+                id="addActivity"
+            >
+                + Add activity
+            </button>
+
+
+            <button
+                type="button"
+                class="text-button"
+                id="loadDemo"
+            >
+                Load demo data
+            </button>
+
+        </div>
+
+
+        <p class="hint">
+            Use durations in 15-minute steps:
+            0.25, 0.5, 1, 1.25, 1.5 hours and so on.
+        </p>
+
+    </section>
+
+
+    <button
+        type="submit"
+        class="button button-primary generate-button"
+    >
+        Generate my timetable
+    </button>
+
+</form>
+
+
+
+<section id="resultSection" class="panel result-panel" hidden>
+
+    <div class="section-heading">
+
+        <span class="step">03</span>
+
+        <div>
+            <h2>Your generated timetable</h2>
+
+            <p id="resultSummary">
+                Your activities have been scheduled.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div id="resultMessage" class="message" hidden></div>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Activity</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+
+            <tbody id="timetableBody"></tbody>
+
+        </table>
+
+    </div>
+
+
+    <div
+        id="unscheduledArea"
+        class="unscheduled-area"
+        hidden
+    ></div>
+
+
+    <button
+        type="button"
+        class="button button-light print-button"
+        onclick="window.print()"
+    >
+        Print timetable
+    </button>
+
+</section>
+
+
+<p
+    id="errorMessage"
+    class="error-message"
+    role="alert"
+    hidden
+></p>
+
+</main>
+
+
+<footer>
+    Smart Timetable Generator · Java + HTML + CSS + JavaScript
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
